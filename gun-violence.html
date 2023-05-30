@@ -3,6 +3,29 @@
   <head>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <h1>Gun violence in the USA</h1>
+    <style type="text/css">
+      div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 200px;
+        height: 120px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: white;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+      path #states :hover {
+        fill-opacity: 0.7;
+      }
+    </style>
   </head>
-  <div id="vis"><script src="gun-violance.js"></script></div>
+  <div id="shootings">
+    <script src="gun-violence-shootings.js"></script>
+  </div>
+  <div id="states">
+    <script src="gun-violence-states.js"></script>
+  </div>
 </html>
