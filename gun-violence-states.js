@@ -52,8 +52,12 @@
         .on("mouseover", function (d) {
           div.transition().duration(200).style("opacity", 0.9);
           div
-            .text(
-              d.properties.name + "Total victims: " + d.properties.totalVictims
+            .html(
+              "<span class='tooltip-text-bold'>" +
+                d.properties.name +
+                "<br><br>" +
+                "Total victims: " +
+                d.properties.totalVictims
             )
             .style("left", d3.event.pageX + "px")
             .style("top", d3.event.pageY - 28 + "px");

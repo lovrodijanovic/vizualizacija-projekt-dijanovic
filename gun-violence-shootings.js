@@ -53,7 +53,23 @@
       .on("mouseover", function (d) {
         div.transition().duration(200).style("opacity", 0.9);
         div
-          .text("Fsadsad")
+          .html(
+            "<span class='tooltip-text-bold'>" +
+              d.case +
+              "<br><br>" +
+              d.location +
+              "<br>" +
+              d.date +
+              "<br>" +
+              "Total victims: " +
+              d.total_victims +
+              "<br>" +
+              "Facility: " +
+              d.facility +
+              "<br>" +
+              "Weapon: " +
+              d.weapon_type
+          )
           .style("left", d3.event.pageX + "px")
           .style("top", d3.event.pageY - 28 + "px");
       })
