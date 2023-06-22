@@ -3,7 +3,6 @@
   <head>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <h1>Gun violence in the USA</h1>
     <style type="text/css">
       div .tooltip {
         position: absolute;
@@ -29,15 +28,140 @@
       path #states :hover {
         fill-opacity: 0.7;
       }
+
       .tooltip-text-bold {
         font-weight: 700;
       }
+
+      body {
+        text-align: center;
+        background-color: black;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        display: none;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input + .slider {
+        background-color: red;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      .left-text,
+      .right-text {
+        position: absolute;
+        top: 14%;
+        transform: translateY(-50%);
+        font-size: 1.5vw;
+        color: black;
+        padding: 0 50px;
+        box-sizing: border-box;
+        color: #ccc;
+      }
+
+      .left-text {
+        left: 35%;
+      }
+
+      .right-text {
+        right: 37%;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #ccc;
+      }
+
+      h1 {
+        font-size: 45px;
+        margin-bottom: 50px;
+      }
+
+      .map-text {
+        margin-top: 50px;
+      }
     </style>
   </head>
+
+  <h1>Mass Shootings: America's Gun Violence Problem</h1>
+
+  <div>
+    <label class="switch" id="mySwitch">
+      <input type="checkbox" />
+      <span class="slider round"></span>
+    </label>
+    <span class="left-text">Shootings</span>
+    <span class="right-text">Deaths</span>
+  </div>
+
+  <div class="map-text">
+    <h2>Mass shootings take place all over America</h2>
+    <h3><i>Hover for more details</i></h3>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const switchElement = document.getElementById("mySwitch");
+
+      if (switchElement) {
+        switchElement.addEventListener("change", handleSwitchChange);
+      } else {
+        console.error("Switch element not found.");
+      }
+    });
+
+    function handleSwitchChange(event) {
+      const switchElement = event.target;
+      const shootings = document.getElementById("shootings");
+      const states = document.getElementById("states");
+      if (switchElement.checked) {
+        shootings.style.display = "none";
+        states.style.display = "block";
+      } else {
+        shootings.style.display = "block";
+        states.style.display = "none";
+      }
+    }
+  </script>
   <div id="shootings">
     <script src="gun-violence-shootings.js"></script>
   </div>
-  <div id="states">
+  <div id="states" hidden>
     <script src="gun-violence-states.js"></script>
   </div>
 </html>
