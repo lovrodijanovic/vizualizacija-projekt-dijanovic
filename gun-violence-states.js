@@ -22,12 +22,21 @@
     d3.json("states.json", function (json) {
       for (var i = 0; i < data.length; i++) {
         var totalVictims = 0;
+        var fatalities = 0;
+        var injured = 0;
+        var cases;
         for (var j = 0; j < json.features.length; j++) {
           var jsonState = json.features[j].properties.name;
           var dataState = data[i].location.split(",")[1];
           if (dataState.trim() === jsonState.trim()) {
             totalVictims += data[i].total_victims;
             json.features[j].properties.totalVictims = totalVictims;
+            fatalities += data[i].fatalities;
+            json.features[j].properties.fatalities = fatalities;
+            injured += data[i].injured;
+            json.features[j].properties.injured = injured;
+            cases = data[i].case;
+            json.features[j].properties.cases = cases;
           }
         }
       }
@@ -57,7 +66,16 @@
                 d.properties.name +
                 "<br><br>" +
                 "Total victims: " +
-                d.properties.totalVictims
+                d.properties.totalVictims +
+                "<br>" +
+                "Fatalities: " +
+                d.properties.fatalities +
+                "<br>" +
+                "Injured: " +
+                d.properties.injured +
+                "<br>" +
+                "Case: " +
+                d.properties.cases
             )
             .style("left", d3.event.pageX + "px")
             .style("top", d3.event.pageY - 28 + "px");

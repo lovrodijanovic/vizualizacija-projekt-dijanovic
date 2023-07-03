@@ -17,7 +17,12 @@
 
       #states .tooltip {
         width: 200px;
-        height: 50px;
+        height: 100px;
+      }
+
+      #charts .tooltip {
+        width: 200px;
+        height: 20px;
       }
 
       #shootings .tooltip {
@@ -34,8 +39,8 @@
       }
 
       body {
-        text-align: center;
         background-color: black;
+        padding: 30px;
       }
 
       .switch {
@@ -43,6 +48,8 @@
         display: inline-block;
         width: 60px;
         height: 34px;
+        margin-left: 200px;
+        margin-top: 8px;
       }
 
       .switch input {
@@ -84,7 +91,7 @@
       .left-text,
       .right-text {
         position: absolute;
-        top: 14%;
+        top: 18%;
         transform: translateY(-50%);
         font-size: 1.5vw;
         color: black;
@@ -94,11 +101,11 @@
       }
 
       .left-text {
-        left: 35%;
+        left: 2%;
       }
 
       .right-text {
-        right: 37%;
+        right: 62%;
       }
 
       h1,
@@ -112,8 +119,23 @@
         margin-bottom: 50px;
       }
 
-      .map-text {
+      #charts {
+        margin-top: 100px;
+      }
+
+      .visualisations {
+        overflow: hidden;
         margin-top: 50px;
+      }
+
+      #shootings,
+      #states,
+      .visualisations > div {
+        width: 50%;
+        float: left;
+      }
+      .chart {
+        margin-top: 70px;
       }
     </style>
   </head>
@@ -126,12 +148,7 @@
       <span class="slider round"></span>
     </label>
     <span class="left-text">Shootings</span>
-    <span class="right-text">Deaths</span>
-  </div>
-
-  <div class="map-text">
-    <h2>Mass shootings take place all over America</h2>
-    <h3><i>Hover for more details</i></h3>
+    <span class="right-text">Deaths (most recent shooting)</span>
   </div>
 
   <script>
@@ -158,10 +175,23 @@
       }
     }
   </script>
-  <div id="shootings">
-    <script src="gun-violence-shootings.js"></script>
-  </div>
-  <div id="states" hidden>
-    <script src="gun-violence-states.js"></script>
+  <div class="visualisations">
+    <div>
+      <h2>Mass shootings take place all over America</h2>
+      <h3><i>Hover for more details</i></h3>
+      <div id="shootings">
+        <script src="gun-violence-shootings.js"></script>
+      </div>
+      <div id="states" hidden>
+        <script src="gun-violence-states.js"></script>
+      </div>
+    </div>
+    <h2>
+      Mass shootings: total victims, fatalities and injuries (deadliest
+      shooting)
+    </h2>
+    <div class="chart">
+      <script src="gun-violence-charts.js"></script>
+    </div>
   </div>
 </html>
