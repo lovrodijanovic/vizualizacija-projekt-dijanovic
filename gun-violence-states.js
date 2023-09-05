@@ -25,6 +25,7 @@
         var fatalities = 0;
         var injured = 0;
         var cases;
+        var dates;
         for (var j = 0; j < json.features.length; j++) {
           var jsonState = json.features[j].properties.name;
           var dataState = data[i].location.split(",")[1];
@@ -37,6 +38,8 @@
             json.features[j].properties.injured = injured;
             cases = data[i].case;
             json.features[j].properties.cases = cases;
+            dates = data[i].date;
+            json.features[j].properties.dates = dates;
           }
         }
       }
@@ -75,7 +78,10 @@
                 d.properties.injured +
                 "<br>" +
                 "Case: " +
-                d.properties.cases
+                d.properties.cases +
+                "<br>" +
+                "Case: " +
+                d.properties.dates
             )
             .style("left", d3.event.pageX + "px")
             .style("top", d3.event.pageY - 28 + "px");

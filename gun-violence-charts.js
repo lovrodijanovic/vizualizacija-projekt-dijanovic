@@ -20,6 +20,13 @@
     },
   ];
 
+  const sumsByYear = data.map((yearData) => ({
+    year: yearData.year,
+    totalVictims: d3.sum(yearData.totalVictims),
+    fatalities: d3.sum(yearData.fatalities),
+    injured: d3.sum(yearData.injured),
+  }));
+
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = 650 - margin.left - margin.right;
   const height = 450 - margin.top - margin.bottom;
@@ -34,15 +41,15 @@
 
   const xScale = d3.scale
     .ordinal()
-    .domain(data.map((d) => d.year))
+    .domain(sumsByYear.map((d) => d.year))
     .rangeRoundBands([0, width], 0.1);
 
   const yScale = d3.scale
     .linear()
     .domain([
       0,
-      d3.max(data, (d) =>
-        d3.max(d.totalVictims.concat(d.fatalities).concat(d.injured))
+      d3.max(sumsByYear, (d) =>
+        d3.max([d.totalVictims, d.fatalities, d.injured])
       ),
     ])
     .range([height, 0]);
@@ -50,12 +57,12 @@
   const colors = {
     totalVictims: "#800000",
     fatalities: "red",
-    injured: "#ff9999 ",
+    injured: "#ff9999",
   };
 
   const years = svg
     .selectAll(".year")
-    .data(data)
+    .data(sumsByYear)
     .enter()
     .append("g")
     .attr("class", "year")
@@ -64,21 +71,21 @@
   years
     .selectAll("rect")
     .data((d) => [
-      { type: "totalVictims", values: d.totalVictims },
-      { type: "fatalities", values: d.fatalities },
-      { type: "injured", values: d.injured },
+      { type: "totalVictims", value: d.totalVictims },
+      { type: "fatalities", value: d.fatalities },
+      { type: "injured", value: d.injured },
     ])
     .enter()
     .append("rect")
     .attr("x", (d, i) => (xScale.rangeBand() / 3) * i)
     .attr("width", xScale.rangeBand() / 3)
-    .attr("y", (d) => yScale(d3.max(d.values)))
-    .attr("height", (d) => height - yScale(d3.max(d.values)))
+    .attr("y", (d) => yScale(d.value))
+    .attr("height", (d) => height - yScale(d.value))
     .style("fill", (d) => colors[d.type]);
 
   svg
     .selectAll(".year-label")
-    .data(data)
+    .data(sumsByYear)
     .enter()
     .append("text")
     .attr("class", "year-label")
