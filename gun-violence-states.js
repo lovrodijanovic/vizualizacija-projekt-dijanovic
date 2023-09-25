@@ -38,8 +38,6 @@
             json.features[j].properties.injured = injured;
             cases = data[i].case;
             json.features[j].properties.cases = cases;
-            dates = data[i].date;
-            json.features[j].properties.dates = dates;
           }
         }
       }
@@ -78,10 +76,7 @@
                 d.properties.injured +
                 "<br>" +
                 "Case: " +
-                d.properties.cases +
-                "<br>" +
-                "Case: " +
-                d.properties.dates
+                d.properties.cases
             )
             .style("left", d3.event.pageX + "px")
             .style("top", d3.event.pageY - 28 + "px");
